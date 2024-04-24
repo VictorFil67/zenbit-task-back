@@ -13,6 +13,6 @@ authRouter.post("/register", validateBody(signupSchema), signup);
 authRouter.post("/login", validateBody(signinSchema), signin);
 authRouter.get("/current", authtenticate, getCurrent);
 authRouter.post("/logout", authtenticate, logout);
-authRouter.patch("/", authtenticate, updateSubscription);
+// authRouter.patch("/", authtenticate, updateSubscription);
 
 export default authRouter;

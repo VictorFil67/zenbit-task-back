@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import {
   findUser,
-  updateSubscriptionByFilter,
+  // updateSubscriptionByFilter,
 } from "../services/userServices.js";
 import "dotenv/config"; // Вместо этого можно:
 // import dotenv from "dotenv";
@@ -21,16 +21,15 @@ const signup = async (req, res) => {
   }
   const newUser = await register(req.body);
   res.status(201).json({
-    user: {
-      email: newUser.email,
-      subscription: newUser.subscription,
-    },
+    email: newUser.email,
+    // subscription: newUser.subscription,
   });
 };
 
 const signin = async (req, res) => {
   const { email, password } = req.body;
   const user = await findUser({ email });
+  console.log(JWT_SECRET);
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
   }
@@ -49,42 +48,44 @@ const signin = async (req, res) => {
     token,
     user: {
       email: user.email,
-      subscription: user.subscription,
+      // subscription: user.subscription,
     },
   });
 };
 
 const getCurrent = async (req, res) => {
-  const { email, subscription } = req.user;
+  const { email } = req.user;
   res.json({
     email,
-    subscription,
+    // subscription,
   });
 };
 
 const logout = async (req, res) => {
   const { _id } = req.user;
   await setToken(_id);
-  res.status(204).json();
-};
-
-const updateSubscription = async (req, res) => {
-  const { email } = req.user;
-  const result = await updateSubscriptionByFilter({ email }, req.body);
-  const { subscription } = result;
-  if (!result) {
-    throw HttpError(404);
-  }
-  res.status(200).json({
-    email,
-    subscription,
+  res.status(204).json({
+    message: "Logout success",
   });
 };
+
+// const updateSubscription = async (req, res) => {
+//   const { email } = req.user;
+//   const result = await updateSubscriptionByFilter({ email }, req.body);
+//   const { subscription } = result;
+//   if (!result) {
+//     throw HttpError(404);
+//   }
+//   res.status(200).json({
+//     email,
+//     subscription,
+//   });
+// };
 
 export default {
   signup: ctrlWrapper(signup),
   signin: ctrlWrapper(signin),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
-  updateSubscription: ctrlWrapper(updateSubscription),
+  // updateSubscription: ctrlWrapper(updateSubscription),
 };

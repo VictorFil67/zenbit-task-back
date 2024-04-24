@@ -7,6 +7,9 @@ const { JWT_SECRET } = process.env;
 
 const authtenticate = async (req, res, next) => {
   const { authorization } = req.headers;
+  if (!authorization) {
+    return next(HttpError(401));
+  }
   const [bearer, token] = authorization.split(" ");
   if (bearer !== "Bearer") {
     return next(HttpError(401));
