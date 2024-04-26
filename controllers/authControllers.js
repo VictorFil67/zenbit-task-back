@@ -13,7 +13,7 @@ import "dotenv/config";
 import { generateRandomCode } from "../helpers/generateRandomCode.js";
 import sendEmail from "../helpers/sendEmail.js";
 
-const { JWT_SECRET, BASE_URL } = process.env;
+const { JWT_SECRET, DEPLOY_HOST } = process.env;
 
 const signup = async (req, res) => {
   const { email } = req.body;
@@ -87,7 +87,7 @@ const forgotPassword = async (req, res) => {
         <p>If no, ignore this email.</p>
         <p>Otherwise, please click on the link below:</p>
         <div style="margin-bottom: 20px;">
-          <a href="${BASE_URL}/update-password/${tempCode}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #407bff; color: #fff; text-decoration: none; border-radius: 5px;">Click to update your password!</a>
+          <a href="${DEPLOY_HOST}/update-password/${tempCode}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #407bff; color: #fff; text-decoration: none; border-radius: 5px;">Click to update your password!</a>
         </div>
         `,
   };
