@@ -12,6 +12,10 @@ dotenv.config();
 
 const app = express();
 
+// app.get("/", (req, res) => {
+//   res.json("Hello from Zhinomyr!!!");
+// });
+
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());

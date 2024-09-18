@@ -30,7 +30,7 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
   const { email, password } = req.body;
   const user = await findUser({ email });
-  console.log(JWT_SECRET);
+  // console.log(JWT_SECRET);
   if (!user) {
     throw HttpError(401, "Email or password is wrong");
   }
@@ -87,7 +87,7 @@ const forgotPassword = async (req, res) => {
         <p>If no, ignore this email.</p>
         <p>Otherwise, please click on the link below:</p>
         <div style="margin-bottom: 20px;">
-          <a href="${DEPLOY_HOST}/update-password/${tempCode}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #407bff; color: #fff; text-decoration: none; border-radius: 5px;">Click to update your password!</a>
+          <a href="${DEPLOY_HOST}/update-password/${tempCode}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #407bff; color: #fff; text-decoration: none; border-radius: 5px; margin-top: 15px;">Click to update your password!</a>
         </div>
         `,
   };
